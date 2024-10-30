@@ -1,6 +1,7 @@
 #ubuntu-bind9
 #docker build -t [nome] .
 #docker run --name bind [nome]
+#docker container cp bind:[path]
 FROM ubuntu:latest
 
 RUN apt update -y 
