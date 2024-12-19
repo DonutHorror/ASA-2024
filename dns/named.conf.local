@@ -2,11 +2,11 @@
 // Do any local configuration here
 //
 
-zone "asa.br"{
+zone "gilson.asa.br"{
     type master;
     file "/etc/bind/db.asa.br";
     allow-transfer {
-        127.0.0.1;
+        any;
     };
 };
 
