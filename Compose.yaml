@@ -33,45 +33,20 @@ services:
     networks:
       - asa-network
 
-
-  roundcubedb:
-    image: mysql:latest
-    container_name: roundcubedb
-    restart: unless-stopped
-    volumes:
-      - db:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=roundcube-mysql-pw
-      - MYSQL_DATABASE=roundcubemail
-    networks:
-      - asa-network
-
-  roundcubemail:
+  webmail:
     image: roundcube/roundcubemail:latest
-    container_name: roundcubemail
-    restart: unless-stopped
-    depends_on:
-      - roundcubedb
-    links:
-      - roundcubedb
-    volumes:
-      - roundcube:/var/www/html
-    ports:
-      - 9001:80
-    environment:
-      - ROUNDCUBEMAIL_DB_TYPE=mysql
-      - ROUNDCUBEMAIL_DB_HOST=roundcubedb
-      - ROUNDCUBEMAIL_DB_PASSWORD=roundcube-mysql-pw
-      - ROUNDCUBEMAIL_SKIN=elastic
-      - ROUNDCUBEMAIL_DEFAULT_HOST=gilson.asa.br
-      - ROUNDCUBEMAIL_SMTP_SERVER=mail.gilson.asa.br
+    container_name: webmail
     networks:
       - asa-network
-
-volumes:
-  mail:
-  roundcube:
-  db:
+    environment:
+      - ROUNDCUBEMAIL_DEFAULT_HOST=tls://email:143
+      - ROUNDCUBEMAIL_SMTP_SERVER=tls://email:25
+      - ROUNDCUBEMAIL_DB_TYPE=sqlite
+    depends_on:
+      - email
+    volumes:
+      - ./Webmail/Config/config.inc.php:/var/roundcube/config/config.inc.php
+#      - ./Containers/MAIL/Config/ssl/email.crt:/etc/ssl/certs/email.crt:ro
 
 #Docker Networks
 networks:

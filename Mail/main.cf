@@ -7,7 +7,7 @@
 
 # myorigin = /etc/mailname
 
-myorigin = gilson.asa.br
+myorigin = areia.branca.com
 
 # smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
 smtpd_banner = ASA ESMTP Server
@@ -38,7 +38,7 @@ smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_una
 
 #myhostname = localhost
 
-myhostname = mail.gilson.asa.br
+myhostname = mail.areia.branca.com
 
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
