@@ -9,8 +9,8 @@ services:
       - "53:53/udp"
     # Ver onde caralhos esses arquivos vão
     volumes:
-      - ./Webmail/bind/db.praia.com
-      - ./Webmail/bind/named.conf.local
+      - ./Webmail/bind/db.praia.com:/etc/bind/db.praia.com
+      - ./Webmail/bind/named.conf.local:/etc/bind/named.conf.local
 
   proxy:
     build: 
