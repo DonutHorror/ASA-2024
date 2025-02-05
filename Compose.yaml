@@ -8,13 +8,15 @@ services:
     ports:
       - "53:53/udp"
 
-  web:
+  proxy:
     build: 
-      context: ./Web
+      context: ./Proxy
       dockerfile: Dockerfile
-    container_name: web
+    container_name: proxy
     ports:
       - "80:80/tcp"
+    depends_on:
+      - mail
     networks:
       - asa-network
 
