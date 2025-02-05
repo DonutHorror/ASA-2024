@@ -7,6 +7,10 @@ services:
     container_name: dns
     ports:
       - "53:53/udp"
+    # Ver onde caralhos esses arquivos vão
+    volumes:
+      - ./Webmail/bind/db.praia.com
+      - ./Webmail/bind/named.conf.local
 
   proxy:
     build: 
@@ -32,6 +36,10 @@ services:
       - "143:143/tcp" # IMAP
     networks:
       - asa-network
+    # Mesma coisa, ajeitar local do volume
+    volumes:
+      - ./Mail/10-auth.conf
+      - ./Mail/main.cf
 
   webmail:
     image: roundcube/roundcubemail:latest
