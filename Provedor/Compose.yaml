@@ -50,7 +50,7 @@ services:
       - ROUNDCUBEMAIL_SMTP_SERVER=tls://email:25
       - ROUNDCUBEMAIL_DB_TYPE=sqlite
     depends_on:
-      - email
+      - mail
     volumes:
       - ./Webmail/Config/config.inc.php:/var/roundcube/config/config.inc.php
 
