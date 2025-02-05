@@ -18,6 +18,7 @@ $TTL	604800
 
 ns		IN  A  	 	192.168.1.188
 mail	IN	A		192.168.1.188
+webmail	IN	A		192.168.1.188
 www		IN	A		192.168.1.188
 proxy	IN	CNAME	www
 

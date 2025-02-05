@@ -2,9 +2,9 @@
 // Do any local configuration here
 //
 
-zone "areia.branca.br"{
+zone "areia.branca.com"{
     type master;
-    file "/etc/bind/db.praia.br";
+    file "/etc/bind/db.praia.com";
     allow-transfer {
         any;
     };
