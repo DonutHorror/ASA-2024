@@ -7,9 +7,8 @@ services:
     container_name: dns
     ports:
       - "53:53/udp"
-    # Ver onde caralhos esses arquivos vão
     volumes:
-      - ./Webmail/bind/db.praia.com:/etc/bind/db.praia.com
+      - ./Webmail/bind/db.areia.branca.com:/etc/bind/db.areia.branca.com
       - ./Webmail/bind/named.conf.local:/etc/bind/named.conf.local
 
   proxy:
@@ -36,10 +35,10 @@ services:
       - "143:143/tcp" # IMAP
     networks:
       - asa-network
-    # Mesma coisa, ajeitar local do volume
     volumes:
-      - ./Mail/10-auth.conf
-      - ./Mail/main.cf
+      - ./Mail/Config/main.cf:/etc/postfix/main.cf
+      - ./Mail/Config/dovecot.conf:/etc/dovecot/dovecot.conf
+      - ./Mail/Config/10-master.conf:/etc/dovecot/conf.d/10-master.conf
 
   webmail:
     image: roundcube/roundcubemail:latest
@@ -54,7 +53,6 @@ services:
       - email
     volumes:
       - ./Webmail/Config/config.inc.php:/var/roundcube/config/config.inc.php
-#      - ./Containers/MAIL/Config/ssl/email.crt:/etc/ssl/certs/email.crt:ro
 
 #Docker Networks
 networks:

@@ -4,7 +4,7 @@
 
 zone "areia.branca.com"{
     type master;
-    file "/etc/bind/db.praia.com";
+    file "/etc/bind/db.areia.branca.com";
     allow-transfer {
         any;
     };
