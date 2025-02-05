@@ -2,7 +2,7 @@
 ; BIND data file for asa.br zone
 ;
 $TTL	604800
-@	IN	SOA	ns.asa.br. root.asa.br. (
+@	IN	SOA	ns.gilson.asa.br. root.gilson.asa.br. (
 			      1		; Serial
 			 604800		; Refresh
 			  86400		; Retry
@@ -15,4 +15,4 @@ $TTL	604800
 mail	IN	A	192.168.1.188
 www		IN	A	192.168.1.188
 portal	IN	CNAME	www
-gilson	IN	CNAME	www
+
