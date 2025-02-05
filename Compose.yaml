@@ -1,0 +1,47 @@
+ 
+services:
+  dns:
+    build: 
+      context: ./DNS
+      dockerfile: Dockerfile
+    container_name: dns
+    ports:
+      - "53:53/udp"
+
+  web:
+    build: 
+      context: ./Web
+      dockerfile: Dockerfile
+    container_name: web
+    ports:
+      - "80:80/tcp"
+    depends_on:
+      - asa-server
+    networks:
+      - asa-network
+
+  asa-server:
+    build: 
+      context: ./Asa-server
+      dockerfile: Dockerfile
+    container_name: asa-server
+    networks:
+      - asa-network
+
+  mail:
+    build: 
+      context: ./Mail
+      dockerfile: Dockerfile
+    container_name: mail
+    ports:
+      - "25:25/tcp"   # SEMP
+      - "587:587/tcp" # SMP Client
+      - "110:110/tcp" # POP3
+      - "143:143/tcp" # IMAP
+    networks:
+      - asa-network
+
+#Docker Networks
+networks:
+  asa-network:
+    driver: bridge
