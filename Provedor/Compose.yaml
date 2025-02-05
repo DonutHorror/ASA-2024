@@ -8,8 +8,8 @@ services:
     ports:
       - "53:53/udp"
     volumes:
-      - ./Webmail/bind/db.areia.branca.com:/etc/bind/db.areia.branca.com
-      - ./Webmail/bind/named.conf.local:/etc/bind/named.conf.local
+      - ./DNS/bind/db.areia.branca.com:/etc/bind/db.areia.branca.com
+      - ./DNS/bind/named.conf.local:/etc/bind/named.conf.local
 
   proxy:
     build: 
@@ -36,9 +36,9 @@ services:
     networks:
       - asa-network
     volumes:
-      - ./Mail/Config/main.cf:/etc/postfix/main.cf
-      - ./Mail/Config/dovecot.conf:/etc/dovecot/dovecot.conf
-      - ./Mail/Config/10-master.conf:/etc/dovecot/conf.d/10-master.conf
+      - ./Mail/config/main.cf:/etc/postfix/main.cf
+      - ./Mail/config/dovecot.conf:/etc/dovecot/dovecot.conf
+      - ./Mail/config/10-master.conf:/etc/dovecot/conf.d/10-master.conf
 
   webmail:
     image: roundcube/roundcubemail:latest
@@ -52,7 +52,7 @@ services:
     depends_on:
       - mail
     volumes:
-      - ./Webmail/Config/config.inc.php:/var/roundcube/config/config.inc.php
+      - ./Webmail/config/config.inc.php:/var/roundcube/config/config.inc.php
 
 #Docker Networks
 networks:
