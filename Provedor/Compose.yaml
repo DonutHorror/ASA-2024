@@ -31,6 +31,7 @@ services:
       - ./Mail/config/dovecot.conf:/etc/dovecot/dovecot.conf
       - ./Mail/config/10-master.conf:/etc/dovecot/conf.d/10-master.conf
       - ./Mail/config/10-auth.conf:/etc/dovecot/conf.d/10-auth.conf
+      - ./Mail/config/master.conf:/etc/postfix/master.cf
 
   proxy:
     build: 
@@ -65,21 +66,26 @@ services:
     container_name: roundcubemail
     depends_on:
       - roundcubedb
+      - dns
     links:
       - roundcubedb
     volumes:
       - roundcube:/var/www/html
+    ports:
+      - "8080:80"
     environment:
       - ROUNDCUBEMAIL_DB_TYPE=mysql
       - ROUNDCUBEMAIL_DB_HOST=roundcubedb
       - ROUNDCUBEMAIL_DB_PASSWORD=roundcube-mysql-pw
       - ROUNDCUBEMAIL_SKIN=elastic
       - ROUNDCUBEMAIL_DEFAULT_HOST=mail.areia.branca.com
-      - ROUNDCUBEMAIL_SMTP_SERVER=mail.areia.branca.com
-      - ROUNDCUBEMAIL_SMTP_PORT=587
+      - ROUNDCUBEMAIL_SMTP_SERVER=ssl://mail.areia.branca.com
+      - ROUNDCUBEMAIL_SMTP_PORT=465
       - ROUNDCUBEMAIL_DEFAULT_PORT=143
     networks:
       - main-network
+    dns:
+      192.168.1.188
 
   ssh:
     build:
