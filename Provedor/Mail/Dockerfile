@@ -7,8 +7,8 @@ RUN apt install vim postfix dnsutils iputils-ping -y
 RUN apt install dovecot-imapd dovecot-pop3d -y
 RUN apt install syslog-ng -y
 
-RUN useradd -m 'vitor' -m vitor
-RUN useradd -m 'texeira' -m texeira
+RUN useradd -c 'vitor' -m vitor
+RUN useradd -c 'texeira' -m texeira
 RUN echo "vitor:asa" | chpasswd
 RUN echo "texeira:asa" | chpasswd
 

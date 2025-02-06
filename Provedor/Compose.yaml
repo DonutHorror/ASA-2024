@@ -10,6 +10,8 @@ services:
     volumes:
       - ./DNS/bind/db.areia.branca.com:/etc/bind/db.areia.branca.com
       - ./DNS/bind/named.conf.local:/etc/bind/named.conf.local
+    networks:
+      - main-network
 
   proxy:
     build: 
@@ -21,7 +23,7 @@ services:
     depends_on:
       - mail
     networks:
-      - asa-network
+      - main-network
 
   mail:
     build: 
@@ -33,18 +35,20 @@ services:
       - "587:587/tcp" # SMP Client
       - "110:110/tcp" # POP3
       - "143:143/tcp" # IMAP
+      - "465:465/tcp"
     networks:
-      - asa-network
+      - main-network
     volumes:
       - ./Mail/config/main.cf:/etc/postfix/main.cf
       - ./Mail/config/dovecot.conf:/etc/dovecot/dovecot.conf
       - ./Mail/config/10-master.conf:/etc/dovecot/conf.d/10-master.conf
+      - ./Mail/config/10-auth.conf:/etc/dovecot/conf.d/10-auth.conf
 
   webmail:
     image: roundcube/roundcubemail:latest
     container_name: webmail
     networks:
-      - asa-network
+      - main-network
     environment:
       - ROUNDCUBEMAIL_DEFAULT_HOST=tls://email:143
       - ROUNDCUBEMAIL_SMTP_SERVER=tls://email:25
@@ -56,5 +60,5 @@ services:
 
 #Docker Networks
 networks:
-  asa-network:
+  main-network:
     driver: bridge
