@@ -1,9 +1,6 @@
 FROM nginx:latest
 
-COPY ./html/error.html /usr/share/nginx/html
-COPY default.conf /etc/nginx/conf.d
+RUN mkdir -p /etc/nginx/ssl
 
-COPY nginx.conf /etc/nginx
-
-RUN mkdir -p /usr/share/nginx/gilson
-COPY ./html/index.html /usr/share/nginx/gilson
+# Gerar certificado e chave autoassinado
+RUN openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/ssl/nginx-selfsigned.key -out /etc/nginx/ssl/nginx-selfsigned.crt -days 365 -nodes -subj "/C=BR/ST=State/L=City/O=Org/OU=IT/CN=proxy.areia.branca.com"
