@@ -13,7 +13,6 @@ $TTL	604800
 ;
 @		IN	NS		ns.areia.branca.com.
 @		IN	MX  10  mail.areia.branca.com.
-@		IN	MX  10  webmail.areia.branca.com.
 @		IN  A		192.168.1.188
 
 ns		IN  A  	 	192.168.1.188

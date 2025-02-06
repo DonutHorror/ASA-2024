@@ -1,1 +1,0 @@
-FROM roundcube/roundcubemail:latest

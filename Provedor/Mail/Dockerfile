@@ -9,7 +9,7 @@ RUN apt install syslog-ng -y
 
 RUN useradd -c 'vitor' -m vitor
 RUN useradd -c 'texeira' -m texeira
-RUN echo "vitor:asa" | chpasswd
-RUN echo "texeira:asa" | chpasswd
+RUN echo "vitor:root" | chpasswd
+RUN echo "texeira:root" | chpasswd
 
 CMD ["sh", "-c", "service syslog-ng start ; service postfix start ; service dovecot start ; tail -F /var/log/mail.log"]
