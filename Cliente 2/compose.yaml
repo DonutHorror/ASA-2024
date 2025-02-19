@@ -1,7 +1,7 @@
 services:    
-  db-client1:
+  db-client2:
     image: mariadb:latest
-    container_name: db-client1
+    container_name: db-client2
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
       MYSQL_DATABASE: wordpress
@@ -12,15 +12,15 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       
-  wordpress-client1:
+  wordpress-client2:
     image: wordpress:latest
-    container_name: wordpress-client1
+    container_name: wordpress-client2
     depends_on:
       - db
     restart: always
     tty: true
     environment:
-      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_HOST: db-client2
       WORDPRESS_DB_USER: wpuser
       WORDPRESS_DB_PASSWORD: wppass
       WORDPRESS_DB_NAME: wordpress
@@ -30,15 +30,15 @@ services:
     volumes:
       - wordpress_data:/var/www/html
 
-  wordpress-2-client1:
+  wordpress-2-client2:
     image: wordpress:latest
-    container_name: wordpress-2-client1
+    container_name: wordpress-2
     depends_on:
       - db
     restart: always
     tty: true
     environment:
-      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_HOST: db-client2
       WORDPRESS_DB_USER: wpuser
       WORDPRESS_DB_PASSWORD: wppass
       WORDPRESS_DB_NAME: wordpress
@@ -53,9 +53,9 @@ services:
       context: ./SSH
       dockerfile: Dockerfile
     image: ssh
-    container_name: ssh-client1
+    container_name: ssh-client2
     ports:
-      - "2222:22"
+      - "2223:22"
     networks:
       - main-network
 

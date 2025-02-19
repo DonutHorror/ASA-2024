@@ -9,6 +9,20 @@ zone "areia.branca.com"{
         any;
     };
 };
+    zone "client1.com"{
+    type master;
+    file "/etc/bind/db.client1.com";
+    allow-transfer {
+        any;
+    };
+};
+    zone "client2.com"{
+    type master;
+    file "/etc/bind/db.client2.com";
+    allow-transfer {
+        any;
+    };
+};
 
 // Consider adding the 1918 zones here, if they are not used in your
 // organization

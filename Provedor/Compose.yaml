@@ -9,6 +9,8 @@ services:
       - "53:53/udp"
     volumes:
       - ./DNS/bind/db.areia.branca.com:/etc/bind/db.areia.branca.com
+      - ./DNS/bind/db.client1.com:/etc/bind/db.client1.com
+      - ./DNS/bind/db.client2.com:/etc/bind/db.client2.com
       - ./DNS/bind/named.conf.local:/etc/bind/named.conf.local
     networks:
       - main-network
@@ -45,9 +47,11 @@ services:
       - mail
     networks:
       - main-network
+      - external-network
     volumes:
       - ./Proxy/default.conf:/etc/nginx/conf.d/default.conf
       - ./Proxy/nginx.conf:/etc/nginx/nginx.conf
+      - ./Proxy/ssl:/etc/nginx/ssl
   
 
   roundcubedb:
@@ -106,3 +110,5 @@ volumes:
 networks:
   main-network:
     driver: bridge
+  external-network:
+    external: true
